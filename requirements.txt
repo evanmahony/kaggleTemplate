@@ -1,0 +1,10 @@
+# Standard 
+# Packages not included in the sci-py docker image
+
+torch 
+tensorboard
+
+# Image Detection
+
+#opencv-python 
+#torchvision 
