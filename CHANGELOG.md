@@ -10,7 +10,7 @@ and this project (hopefully) adheres to [Semantic Versioning](https://semver.org
 
 - Dockerfile to remove requirements.txt from the environment.
 
-## [0.1.1] - 2022-01-22
+## [v0.1.1] - 2022-01-22
 
 Basic tidying up.
 
@@ -22,7 +22,7 @@ Basic tidying up.
 
 - Updated TODO, CHANGELOG, setup.py now I've a better idea what I'm doing with them
 
-## [0.1.0] - 2022-01-21
+## [v0.1.0] - 2022-01-21
 
 ### Added
 
@@ -34,6 +34,6 @@ Basic tidying up.
 - Dockerfile using Jupyter image.
 
 [Unreleased]: https://github.com/evanmahony/kaggleTemplate/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v0.1.1 
-[0.1.0]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v0.1.0 
+[v0.1.1]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v0.1.1 
+[v0.1.0]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v0.1.0 
 
