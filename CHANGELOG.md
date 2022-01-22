@@ -6,6 +6,8 @@ and this project (hopefully) adheres to [Semantic Versioning](https://semver.org
 
 ## [Unreleased]
 
+## [v0.2.0] - 2022-01-22
+
 ### Added
 
 - Data and utils to module
@@ -48,8 +50,9 @@ Basic tidying up.
 - TODO file for tracking progress.
 - Dockerfile using Jupyter image.
 
-[Unreleased]: https://github.com/evanmahony/kaggleTemplate/compare/v0.1.2...HEAD
-[v0.1.2]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v1.1.2
+[Unreleased]: https://github.com/evanmahony/kaggleTemplate/compare/v0.2.0...HEAD
+[v0.2.0]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v0.2.0
+[v0.1.2]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v0.1.2
 [v0.1.1]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v0.1.1 
 [v0.1.0]: https://github.com/evanmahony/kaggleTemplate/releases/tag/v0.1.0 
 

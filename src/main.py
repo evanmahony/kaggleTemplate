@@ -1,26 +1,41 @@
-import matplotlib.pyplot as plt
-import numpy as np
+import torch
+from tqdm import tqdm
 
-import example 
+import example
 
-def generate_data(n=256, m=3, c=2, plot=True):
-    x = np.random.rand(n)
-    noise = np.random.randn(n)/4
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+LEARNING_RATE = 0.01
+EPOCHS = 100
+BATCH_SIZE = 256
 
-    y = m * x + c + noise
-
-    if plot==True:
-        plt.scatter(x, y)
-        plt.show()
-
-    return x, y
-
-
+print(f"Using {DEVICE} device")
+    
+    
 def main():
-    x, y = generate_data()
+    model = example.Model(1, 1).to(DEVICE)
+    loss_fn = torch.nn.MSELoss()
+    optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE)
+    
+    train_dataloader, test_dataloader = example.utils.get_dataloaders(BATCH_SIZE)
+    
+    load = False
+    if load:
+        model.load_state_dict(torch.load("model.pth"))
 
+    for epoch in tqdm(range(EPOCHS)):
+        print(f'Epoch {epoch}')
+        model.train()
+        example.utils.train(train_dataloader, DEVICE, optimizer, model, loss_fn)
+        if epoch % 10 == 0:
+            example.utils.test(test_dataloader, DEVICE, model, loss_fn)
+            
 
+    save = False
+    if save:
+        torch.save(model.state_dict(), "model.pth")
+        print("Saved PyTorch Model State to model.pth")
+
+        
 if __name__=="__main__":
     main()
-
 

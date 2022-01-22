@@ -1,3 +1,5 @@
-__all__=["Model"]
+__all__=["CustomDataset", "Model", "utils"]
 
-from example.model import Model
+from .data import CustomDataset
+from .model import Model
+from . import utils
