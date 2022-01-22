@@ -7,6 +7,7 @@ RUN rmdir work
 # Installing missing packages
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
+RUN rm requirements.txt
 
 # Copying code
 COPY --chown=jovyan:users src /home/jovyan/src

@@ -6,6 +6,10 @@ and this project (hopefully) adheres to [Semantic Versioning](https://semver.org
 
 ## [Unreleased]
 
+### Changed
+
+- Dockerfile to remove requirements.txt from the environment.
+
 ## [0.1.1] - 2022-01-22
 
 Basic tidying up.
