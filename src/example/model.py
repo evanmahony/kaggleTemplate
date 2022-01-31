@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 class Model(nn.Module):
     def __init__(self, input_dim, output_dim):
         super(Model, self).__init__()
@@ -9,4 +10,3 @@ class Model(nn.Module):
     def forward(self, x):
         out = self.linear(x)
         return out
-

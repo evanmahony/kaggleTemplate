@@ -38,3 +38,7 @@ Sample TODO file for tracking progress.
 - [ ] Create design documentation example
 - [ ] Generate documentation from docstrings
 
+## Setup
+
+- [ ] Need to get proper list of dependencies
+

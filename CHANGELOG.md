@@ -6,6 +6,10 @@ and this project (hopefully) adheres to [Semantic Versioning](https://semver.org
 
 ## [Unreleased]
 
+### Added
+
+- Black formatting
+
 ## [v0.2.0] - 2022-01-22
 
 ### Added
