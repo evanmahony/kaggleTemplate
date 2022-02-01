@@ -3,6 +3,7 @@
 
 torch 
 tensorboard
+xgboost
 
 # Image Detection
 
