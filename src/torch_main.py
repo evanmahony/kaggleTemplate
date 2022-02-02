@@ -1,4 +1,6 @@
 import logging
+import os
+import time
 
 import torch
 from torch.utils.tensorboard import SummaryWriter
@@ -20,17 +22,25 @@ TEST = True  # Just sets the seed, might need to add a flag
 LOAD = False
 SAVE = False
 
+# Getting time for path
+t = time.localtime()
+TIME = time.strftime("%H-%M %d_%m_%y", t)
+
 # Path names
-RUN_PATH = ""
-LOAD_PATH = ""  # No logging or save path
+PATH = "/home/jovyan/runs"
+OUTPUT_PATH = os.path.join(PATH, TIME)
+os.mkdir(OUTPUT_PATH)
+LOAD_PATH = ""
 
 # Configuring logging
 logging.basicConfig(
-    filename="runs/example.log",
+    filename=os.path.join(OUTPUT_PATH, "run.log"),
     format="%(asctime)s - %(levelname)s - %(message)s",
     encoding="utf-8",
     level=logging.INFO,
 )
+
+print(f"Log file saved to {os.path.join(OUTPUT_PATH, 'run.log')}")
 
 # Logging hyperparameters
 logging.info(
@@ -43,7 +53,7 @@ Device: {DEVICE}
 )
 
 # Tensorboard writer
-writer = SummaryWriter()
+writer = SummaryWriter(OUTPUT_PATH)
 
 
 def main() -> None:
@@ -67,27 +77,37 @@ Optimizer:\n{optimizer}
     # Get split data loaders
     train_dataloader, test_dataloader = get_dataloaders(BATCH_SIZE)
 
-    logging.info(f"Number of train batches: {len(train_dataloader)}")
-    logging.info(f"Number of test batches: {len(test_dataloader)}")
-
+    logging.info(
+        f"""
+Number of train batches: {len(train_dataloader)}
+Number of test batches: {len(test_dataloader)}
+"""
+    )
+    
     # Load model params
     if LOAD:
         # TODO: Change to correct path
-        model.load_state_dict(torch.load("model.pth"))
-        logging.info(f"Loaded model from {'p'}")
+        model.load_state_dict(torch.load(LOAD_PATH))
+        logging.info(f"Loaded model from {LOAD_PATH}")
 
     # Training loop
     for epoch in tqdm(range(EPOCHS)):
         logging.debug(f"Epoch: {epoch}")
-        train(train_dataloader, DEVICE, optimizer, model, loss_fn)
+        
+        loss = train(train_dataloader, DEVICE, optimizer, model, loss_fn)
+        logging.debug(f"Train loss = {loss}")
+        writer.add_scalar('Loss/train', loss, epoch)
+        
         if epoch % 10 == 0:
-            test(test_dataloader, DEVICE, model, loss_fn)
-
+            loss = test(test_dataloader, DEVICE, model, loss_fn)
+            logging.info(f"Test loss = {loss}")
+            writer.add_scalar('Loss/test', loss, epoch)
+            
     # Save model params
     if SAVE:
         # TODO: Change to correct path
-        torch.save(model.state_dict(), "model.pth")
-        logging.info(f"Saved model to {'p'}")
+        torch.save(model.state_dict(), os.path.join(OUTPUT_PATH, 'model.pth'))
+        logging.info(f"Saved model to {os.path.join(OUTPUT_PATH, 'model.pth')}")
 
     # Needs to be done at the end to save the final loss
     writer.add_hparams(

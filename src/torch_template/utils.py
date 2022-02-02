@@ -1,3 +1,5 @@
+import logging
+
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -26,7 +28,7 @@ def train(dataloader, device, optimizer, model, loss_fn):
         # Updating parameters
         optimizer.step()
 
-        # print(f'Loss {loss}')
+        return loss
 
 
 def test(dataloader, device, model, loss_fn):
@@ -40,10 +42,13 @@ def test(dataloader, device, model, loss_fn):
 
             # Calculate Loss
             loss = loss_fn(pred, y)
-            print(f"Loss {loss}")
+            return loss
 
 
-def generate_data(n=256, m=3, c=2, plot=False):
+def generate_data(n=256, m=3, c=2, plot=False, test=True):
+    if test:
+        np.random.seed(24)
+
     x = np.random.rand(n)
     noise = np.random.randn(n) / 4
 
