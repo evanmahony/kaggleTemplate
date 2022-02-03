@@ -6,8 +6,8 @@ import torch
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
-from tf_template import Model
-from tf_template.utils import get_dataloaders, test, train
+from torch_template import Model
+from torch_template.utils import get_dataloaders, test, train
 
 
 # Model Parameters
@@ -28,6 +28,11 @@ TIME = time.strftime("%H-%M %d_%m_%y", t)
 
 # Path names
 PATH = "/home/jovyan/runs"
+
+if os.path.exists(PATH) == False:
+    os.mkdir(PATH)
+
+# Creating run folder
 OUTPUT_PATH = os.path.join(PATH, TIME)
 os.mkdir(OUTPUT_PATH)
 LOAD_PATH = ""
@@ -74,6 +79,11 @@ Optimizer:\n{optimizer}
 """
     )
 
+    # Load model params
+    if LOAD:
+        model.load_state_dict(torch.load(LOAD_PATH))
+        logging.info(f"Loaded model from {LOAD_PATH}")
+
     # Get split data loaders
     train_dataloader, test_dataloader = get_dataloaders(BATCH_SIZE)
 
@@ -83,37 +93,31 @@ Number of train batches: {len(train_dataloader)}
 Number of test batches: {len(test_dataloader)}
 """
     )
-    
-    # Load model params
-    if LOAD:
-        # TODO: Change to correct path
-        model.load_state_dict(torch.load(LOAD_PATH))
-        logging.info(f"Loaded model from {LOAD_PATH}")
 
     # Training loop
     for epoch in tqdm(range(EPOCHS)):
         logging.debug(f"Epoch: {epoch}")
-        
+
+        # Training step
         loss = train(train_dataloader, DEVICE, optimizer, model, loss_fn)
         logging.debug(f"Train loss = {loss}")
-        writer.add_scalar('Loss/train', loss, epoch)
-        
+        writer.add_scalar("Loss/train", loss, epoch)
+
+        # Every tenth epoch run a test
         if epoch % 10 == 0:
             loss = test(test_dataloader, DEVICE, model, loss_fn)
             logging.info(f"Test loss = {loss}")
-            writer.add_scalar('Loss/test', loss, epoch)
-            
+            writer.add_scalar("Loss/test", loss, epoch)
+
     # Save model params
     if SAVE:
-        # TODO: Change to correct path
-        torch.save(model.state_dict(), os.path.join(OUTPUT_PATH, 'model.pth'))
+        torch.save(model.state_dict(), os.path.join(OUTPUT_PATH, "model.pth"))
         logging.info(f"Saved model to {os.path.join(OUTPUT_PATH, 'model.pth')}")
 
     # Needs to be done at the end to save the final loss
     writer.add_hparams(
         {"Learning Rate": LEARNING_RATE, "Batch Size": BATCH_SIZE, "Epochs": EPOCHS},
-        # TODO loss needs to update - architecture change
-        {"Loss": 5},
+        {"Loss/test": loss},
     )
 
     # Closing tensorboard write

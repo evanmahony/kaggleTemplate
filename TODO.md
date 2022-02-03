@@ -17,7 +17,7 @@ Sample TODO file for tracking progress.
 ## Training
 
 - [x] Create training loop
-- [ ] Save model parameters
+- [x] Save model parameters
 
 ## Tests
 
@@ -26,16 +26,17 @@ Sample TODO file for tracking progress.
 
 ## Logging
 
-- [ ] Decide on a consistent method of logging
+- [x] Decide on a consistent method of logging
 
 ## Tensorboard
 
-- [ ] Implement Tensorboard
+- [x] Implement Tensorboard
+- [ ] Implement profiler
 
 ## Documentation
 
 - [ ] Add Docstrings to code
-- [ ] Create design documentation example
+- [x] Create design documentation example
 - [ ] Generate documentation from docstrings
 
 ## Setup
