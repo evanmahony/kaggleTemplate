@@ -13,6 +13,7 @@ Sample TODO file for tracking progress.
 - [x] Generate data
 - [x] Create Dataset
 - [x] Create Dataloader
+- [ ] Add LightGBM
 
 ## Training
 
@@ -42,4 +43,10 @@ Sample TODO file for tracking progress.
 ## Setup
 
 - [ ] Need to get proper list of dependencies
+
+## API
+
+- [x] Create sample API 
+- [ ] Sample API doesn't seem to be loading model correctly
+
 

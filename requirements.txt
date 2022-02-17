@@ -1,11 +1,22 @@
 # Standard 
 # Packages not included in the sci-py docker image
 
+# Machine Learning
 torch 
 tensorboard
+
+# Baseline Models
 xgboost
+lightgbm
+
+# API
+flask
+
+# Formatting
+black 
+black[jupyter]
 
 # Image Detection
-
 #opencv-python 
 #torchvision 
+
